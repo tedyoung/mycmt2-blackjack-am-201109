@@ -40,10 +40,6 @@ public class Hand {
     return value() <= 16;
   }
 
-  void display() {
-    System.out.println(ConsoleCard.cardsAsString(this));
-  }
-
   public void drawFrom(Deck deck) {
     cards.add(deck.draw());
   }
