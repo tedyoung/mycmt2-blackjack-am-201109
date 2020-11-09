@@ -2,6 +2,8 @@ package com.jitterted.ebp.blackjack;
 
 import org.fusesource.jansi.Ansi;
 
+import java.util.stream.Collectors;
+
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class ConsoleCard {
@@ -21,5 +23,16 @@ public class ConsoleCard {
         + String.join(ansi().cursorDown(1)
                             .cursorLeft(11)
                             .toString(), lines);
+  }
+
+  static String displayFirstCard(Hand hand) {
+    return display(hand.cards().get(0));
+  }
+
+  public static String cardsAsString(Hand hand) {
+    return hand.cards().stream()
+               .map(ConsoleCard::display)
+               .collect(Collectors.joining(
+                    ansi().cursorUp(6).cursorRight(1).toString()));
   }
 }
