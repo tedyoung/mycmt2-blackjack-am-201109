@@ -30,7 +30,7 @@ public class WebTest {
 
   @Test
   public void startGamePageIs200() throws Exception {
-    mockMvc.perform(get("/start-game"))
+    mockMvc.perform(get("/game"))
            .andExpect(status().is2xxSuccessful())
            .andExpect(view().name("blackjack"))
            .andExpect(model().attributeExists("hands"));
@@ -40,11 +40,19 @@ public class WebTest {
   public void postToStartGameRedirectsToStartGamePage() throws Exception {
     MvcResult mvcResult = mockMvc.perform(post("/start-game"))
                                  .andExpect(status().is3xxRedirection())
-                                 .andExpect(redirectedUrl("/start-game"))
+                                 .andExpect(redirectedUrl("/game"))
                                  .andReturn();
 
     String redirectedUrl = mvcResult.getResponse().getRedirectedUrl();
     mockMvc.perform(get(redirectedUrl))
            .andExpect(status().isOk());
+  }
+
+  @Test
+  public void postForHitRedirectsBackToGamePage() throws Exception {
+    MvcResult mvcResult = mockMvc.perform(post("/game"))
+                                 .andExpect(status().is3xxRedirection())
+                                 .andExpect(redirectedUrl("/game"))
+                                 .andReturn();
   }
 }

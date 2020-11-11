@@ -15,7 +15,7 @@ public class BlackjackController {
     this.game = game;
   }
 
-  @GetMapping("/start-game")
+  @GetMapping("/game")
   public String getStartGame(Model model) {
     HandView handView = new HandView(game);
 
@@ -26,6 +26,18 @@ public class BlackjackController {
   @PostMapping("/start-game")
   public String initializeGame() {
     game.initialDeal();
-    return "redirect:/start-game";
+
+    return "redirect:/game";
+  }
+
+  @PostMapping("/game")
+  public String hitCommand() {
+    game.playerHits();
+
+    if (game.isPlayerDone()) {
+      return "redirect:/done";
+    }
+
+    return "redirect:/game";
   }
 }

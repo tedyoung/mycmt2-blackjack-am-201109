@@ -49,4 +49,33 @@ class BlackjackControllerTest {
         .hasSize(2);
   }
 
+  @Test
+  public void hitCommandResultsInPlayerHaving3Cards() throws Exception {
+    Game game = new Game();
+    BlackjackController blackjackController = new BlackjackController(game);
+    blackjackController.initializeGame();
+
+    blackjackController.hitCommand();
+
+    assertThat(game.playerHand().cards())
+        .hasSize(3);
+  }
+
+  @Test
+  public void afterHitPlayerBustsRedirectedToGameOutcomePage() throws Exception {
+    Deck stubDeck = new StubDeck(List.of(new Card(Suit.HEARTS, Rank.QUEEN),
+                                         new Card(Suit.CLUBS, Rank.TWO),
+                                         new Card(Suit.HEARTS, Rank.FIVE),
+                                         new Card(Suit.DIAMONDS, Rank.FOUR),
+                                         new Card(Suit.DIAMONDS, Rank.KING)));
+    Game game = new Game(stubDeck);
+    BlackjackController blackjackController = new BlackjackController(game);
+    blackjackController.initializeGame();
+
+    String redirect = blackjackController.hitCommand();
+
+    assertThat(redirect)
+        .isEqualTo("redirect:/done");
+  }
+
 }
