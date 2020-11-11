@@ -50,7 +50,7 @@ public class WebTest {
 
   @Test
   public void postForHitRedirectsBackToGamePage() throws Exception {
-    MvcResult mvcResult = mockMvc.perform(post("/game"))
+    MvcResult mvcResult = mockMvc.perform(post("/hit"))
                                  .andExpect(status().is3xxRedirection())
                                  .andExpect(redirectedUrl("/game"))
                                  .andReturn();
