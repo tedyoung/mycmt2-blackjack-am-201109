@@ -64,4 +64,12 @@ public class WebTest {
            .andExpect(model().attributeExists("hands"))
            .andExpect(model().attributeExists("outcome"));
   }
+
+  @Test
+  public void postForStandRedirectsToDonePage() throws Exception {
+    MvcResult mvcResult = mockMvc.perform(post("/stand"))
+                                 .andExpect(status().is3xxRedirection())
+                                 .andExpect(redirectedUrl("/done"))
+                                 .andReturn();
+  }
 }
