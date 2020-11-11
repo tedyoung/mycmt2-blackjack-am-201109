@@ -40,4 +40,15 @@ public class BlackjackController {
 
     return "redirect:/game";
   }
+
+  @GetMapping("/done")
+  public String doneGame(Model model) {
+    HandView handView = new HandView(game);
+
+    model.addAttribute("hands", handView);
+    model.addAttribute("outcome", game.determineOutcome());
+
+    return "done";
+  }
+
 }

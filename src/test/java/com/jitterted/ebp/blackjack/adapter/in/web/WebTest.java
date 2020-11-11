@@ -55,4 +55,13 @@ public class WebTest {
                                  .andExpect(redirectedUrl("/game"))
                                  .andReturn();
   }
+
+  @Test
+  public void getForDonePageIs200() throws Exception {
+    mockMvc.perform(get("/done"))
+           .andExpect(status().is2xxSuccessful())
+           .andExpect(view().name("done"))
+           .andExpect(model().attributeExists("hands"))
+           .andExpect(model().attributeExists("outcome"));
+  }
 }
