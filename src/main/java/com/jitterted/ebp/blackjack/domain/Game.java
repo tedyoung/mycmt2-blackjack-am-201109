@@ -71,11 +71,16 @@ public class Game {
   public void playerHits() {
     playerHand.drawFrom(deck);
     playerDone = playerHand.isBusted();
+    gameCompleted();
   }
 
   public void playerStands() {
     playerDone = true;
     dealerTurn();
+    gameCompleted();
+  }
+
+  private void gameCompleted() {
     gameMonitor.roundCompleted(this);
   }
 
