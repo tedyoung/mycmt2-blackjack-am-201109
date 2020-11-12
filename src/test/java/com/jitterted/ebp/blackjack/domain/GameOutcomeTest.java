@@ -11,9 +11,12 @@ class GameOutcomeTest {
   @Test
   public void playerBeatsDealer() throws Exception {
     Deck deck = new StubDeck(List.of(new Card(Suit.HEARTS, Rank.QUEEN),
-                                     new Card(Suit.CLUBS, Rank.TWO),
+                                     new Card(Suit.CLUBS, Rank.THREE),
                                      new Card(Suit.HEARTS, Rank.TEN),
-                                     new Card(Suit.DIAMONDS, Rank.FOUR)));
+                                     new Card(Suit.DIAMONDS, Rank.FOUR),
+                                     new Card(Suit.DIAMONDS, Rank.KING),
+                                     new Card(Suit.DIAMONDS, Rank.QUEEN)
+    ));
     Game game = new Game(deck);
 
     game.initialDeal();
@@ -26,9 +29,12 @@ class GameOutcomeTest {
   @Test
   public void playerWinsBlackjack() throws Exception {
     Deck deck = new StubDeck(List.of(new Card(Suit.HEARTS, Rank.QUEEN),
-                                     new Card(Suit.CLUBS, Rank.TWO),
+                                     new Card(Suit.CLUBS, Rank.THREE),
                                      new Card(Suit.HEARTS, Rank.ACE),
-                                     new Card(Suit.DIAMONDS, Rank.FOUR)));
+                                     new Card(Suit.DIAMONDS, Rank.FOUR),
+                                     new Card(Suit.DIAMONDS, Rank.KING),
+                                     new Card(Suit.DIAMONDS, Rank.QUEEN)
+                                     ));
     Game game = new Game(deck);
 
     game.initialDeal();

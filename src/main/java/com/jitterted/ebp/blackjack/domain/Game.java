@@ -7,6 +7,8 @@ public class Game {
   private final Hand dealerHand = new Hand();
   private final Hand playerHand = new Hand();
 
+  private GameMonitor gameMonitor = game -> { };
+
   private boolean playerDone = false;
 
   public Game() {
@@ -15,6 +17,11 @@ public class Game {
 
   public Game(Deck deck) {
     this.deck = deck;
+  }
+
+  public Game(Deck deck, GameMonitor gameMonitor) {
+    this(deck);
+    this.gameMonitor = gameMonitor;
   }
 
   public void initialDeal() {
@@ -44,7 +51,7 @@ public class Game {
     }
   }
 
-  public void dealerTurn() {
+  private void dealerTurn() {
     // Dealer makes its choice automatically based on a simple heuristic (<=16, hit, 17>stand)
     if (!playerHand.isBusted()) {
       while (dealerHand.dealerMustDrawCard()) {
@@ -68,6 +75,8 @@ public class Game {
 
   public void playerStands() {
     playerDone = true;
+    dealerTurn();
+    gameMonitor.roundCompleted(this);
   }
 
   public boolean isPlayerDone() {
